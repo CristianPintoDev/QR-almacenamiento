@@ -3,38 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Almacenamiento QR</title>
+    <title>API de Contenedores</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body>
-    <H1>Ingrese lo solicitado</H1>
-    <form id="formulario">
-        articulo:
-        <input type="text" name="articulo" id="articulo"><br><br>
-        imagen:
-        <input type="file" id="archivo" name="archivo" accept=".jpg">
-        <!-- Cambiar el tipo de botón a "button" para evitar el envío del formulario -->
-        <button type="button" onclick="subirArchivo()">Subir archivo</button>
+    <h1>API de Contenedores</h1>
+    <form id="form_contenedor">
+        <input type="text" id="contenedor_nombre" placeholder="Nombre del Contenedor" required>
     </form>
-    <script>
-        function subirArchivo() {
-            const formData = new FormData();
-            formData.append('archivo', document.getElementById('archivo').files[0]);
-
-            // Enviar la solicitud mediante fetch
-            fetch('http://localhost:3000/almacenar', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-                alert(data); // Mostrar mensaje de respuesta del servidor
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error al conectar con el servidor');
-            });
-        }
-    </script>
+    <form id="article-form">
+        <input type="text" id="article-name" placeholder="Nombre del artículo" required>
+        <button type="submit">Agregar Artículo</button>
+    </form>
+    <div id="articles-container"></div>
+    <button id="generate-qr">Generar Código QR</button>
+    <div id="qr-code"></div>
+    <script src="app.js"></script>
 </body>
 </html>
