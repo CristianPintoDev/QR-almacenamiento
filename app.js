@@ -27,11 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generateQRCode(data) {
+        // add_bd();
+        // crear el qr con el link de la pagina + el id del contendor
         qrCodeContainer.innerHTML = '';
         const qrCode = new QRCode(qrCodeContainer, {
             text: data,
             width: 250,
             height: 250,
         });
+    }
+
+    function add_bd(){
+        // añadir los articulos a una bd
+        // responder el id del contenedor para generar el qr
     }
 });

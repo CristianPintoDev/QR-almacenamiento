@@ -7,3 +7,6 @@ para iniciar se debe iniciar el archivo conexion,js con node, ej:
     node .\conexion.js
 
 seguido por abrir el archivo index,html
+
+
+root@localhost:3306
