@@ -1,0 +1,17 @@
+{
+  "name": "qr-almacenamiento",
+  "version": "1.0.0",
+  "description": "app para generar códigos qr de un listado de artículos almacenados en lugares de almacenaje",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.11.0"
+  }
+}
