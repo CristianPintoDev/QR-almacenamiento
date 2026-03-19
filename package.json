@@ -4,6 +4,7 @@
   "description": "app para generar códigos qr de un listado de artículos almacenados en lugares de almacenaje",
   "main": "app.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

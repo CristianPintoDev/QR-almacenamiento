@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const articlesContainer = document.getElementById('articles-container');
     const generateQrButton = document.getElementById('generate-qr');
     const qrCodeContainer = document.getElementById('qr-code');
+    const printQrButton = document.getElementById('print-qr');
+    
+
 
     let articles = [];
 
@@ -40,7 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ contenedor: contenedorName, articles: articulos, username: username, password: password }),
+                body: JSON.stringify({
+                    contenedor: contenedorName.value,
+                    articles: articulos,
+                    username: username,
+                    password: password
+                })
             });
 
             if (!response.ok) {
@@ -64,5 +72,37 @@ document.addEventListener('DOMContentLoaded', () => {
             width: 250,
             height: 250,
         });
+        printQrButton.style.display = "block";
     }
+
+    printQrButton.addEventListener("click", () => {
+
+        const qrContent = qrCodeContainer.innerHTML;
+    
+        const ventana = window.open("", "_blank");
+    
+        ventana.document.write(`
+            <html>
+            <head>
+                <title>Imprimir QR</title>
+                <style>
+                    body{
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                        height:100vh;
+                    }
+                </style>
+            </head>
+            <body>
+                ${qrContent}
+            </body>
+            </html>
+        `);
+    
+        ventana.document.close();
+    
+        ventana.print();
+    });
+
 });

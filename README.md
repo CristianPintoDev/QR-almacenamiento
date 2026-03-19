@@ -1,12 +1,68 @@
-# QR-almacenamiento
-app para generar códigos qr de un listado de artículos almacenados en lugares de almacenaje
+# QR Almacenamiento
 
+Pequeña aplicación web para crear contenedores con artículos y generar un código QR para consultarlos.
 
+---
 
-para iniciar se debe iniciar el archivo conexion,js con node, ej:
-    node .\conexion.js
+## Descripción
 
-seguido por abrir el archivo index,html
+Permite:
 
+* Crear un contenedor
+* Agregar artículos
+* Generar un QR con un enlace al contenedor
+* Ver los artículos desde una URL
 
-root@localhost:3306
+---
+
+## Tecnologías
+
+* Node.js + Express
+* MySQL
+* HTML, CSS, JavaScript
+
+---
+
+## Instalación
+
+```bash
+npm install
+```
+
+Crear archivo `.env`:
+
+```env
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=tu_password
+DB_NAME=qr_storage
+```
+
+Ejecutar base de datos con `database.sql`
+
+---
+
+## Uso
+
+```bash
+npm start
+```
+
+Abrir:
+
+```
+http://localhost:3000
+```
+
+---
+
+## Endpoints
+
+* `POST /api/contenedores`
+* `GET /api/contenedores/:id`
+
+---
+
+## Autor
+
+Cristian Pinto Estay

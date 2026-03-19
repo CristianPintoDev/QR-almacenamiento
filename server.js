@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const app = express();
 const connection = require('./db'); // Asegúrate de tener el archivo db.js configurado
 
@@ -8,8 +7,8 @@ const connection = require('./db'); // Asegúrate de tener el archivo db.js conf
 const PORT = process.env.PORT || 3000;
 
 // Middleware para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.json());
 
 // Ruta para servir el archivo HTML principal
 app.get('/', (req, res) => {
@@ -20,6 +19,11 @@ app.get('/', (req, res) => {
 app.post('/api/contenedores', (req, res) => {
   const { contenedor, articles, username, password } = req.body;
   console.log(contenedor)
+
+  if (!contenedor || !articles || articles.length === 0) {
+    return res.status(400).json({ error: "Datos incompletos" });
+  }
+
   // Primero, insertar el usuario
   connection.query('INSERT INTO usuarios (name, clave) VALUES (?, ?)',[username, password], (error, results) => {
     if (error) {
@@ -63,6 +67,51 @@ app.post('/api/contenedores', (req, res) => {
     });
   });
 });
+
+app.get('/container/:id', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'container.html'));
+});
+
+app.get('/api/contenedores/:id', (req, res) => {
+
+  const contenedorId = req.params.id;
+
+  connection.query(
+    'SELECT name FROM contenedores WHERE id = ?',
+    [contenedorId],
+    (error, contenedorResults) => {
+
+      if (contenedorResults.length === 0) {
+        return res.status(404).json({ error: "Contenedor no encontrado" });
+      }
+
+      if(error){
+        return res.status(500).json({error:"error contenedor"});
+      }
+
+      connection.query(
+        'SELECT name FROM articulos WHERE cont_id = ?',
+        [contenedorId],
+        (error, articulosResults) => {
+
+          if(error){
+            return res.status(500).json({error:"error articulos"});
+          }
+
+          res.json({
+            
+            contenedor: contenedorResults[0],
+            articulos: articulosResults
+          });
+
+        }
+      );
+
+    }
+  );
+
+});
+
 
 // Iniciar el servidor
 app.listen(PORT, () => {
