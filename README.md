@@ -66,3 +66,8 @@ http://localhost:3000
 ## Autor
 
 Cristian Pinto Estay
+
+
+## License
+
+This project is licensed under the MIT License.
